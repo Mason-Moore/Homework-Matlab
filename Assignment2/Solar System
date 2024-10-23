@@ -1,0 +1,29 @@
+planet_names = {'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'};
+
+figure;
+
+subplot(2, 1, 1);
+scatter(planet_distances, planet_sizes * 100, 100, 'filled'); 
+hold on;
+
+colors = lines(length(planet_names));
+for i = 1:length(planet_names)
+    scatter(planet_distances(i), planet_sizes(i) * 100, 100, 'filled', 'MarkerFaceColor', colors(i, :));
+end
+
+title('Planet Distances vs. Sizes');
+xlabel('Distance from the Sun (AU)');
+ylabel('Relative Size (scaled)');
+legend(planet_names, 'Location', 'Best');
+
+subplot(2, 1, 2);
+bar(planet_distances);
+set(gca, 'XTickLabel', planet_names);
+title('Distances of Planets from the Sun');
+xlabel('Planets');
+ylabel('Distance (AU)');
+
+tight_layout();
+
+saveas(gcf, 'solar_system_visualization.png');
+disp('Figure saved as solar_system_visualization.png');
