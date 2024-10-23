@@ -1,0 +1,39 @@
+function caesar_cipher_demo()
+    
+
+    
+    message = input('Enter a message (lowercase letters only): ', 's');
+    shift = input('Enter a shift value (1-25): ');
+
+    
+    if shift < 1 || shift > 25
+        error('Shift value must be between 1 and 25.');
+    end
+
+    
+    encrypted_message = caesar_cipher(message, shift);
+
+    
+    fprintf('Original message: %s\n', message);
+    fprintf('Encrypted message: %s\n', encrypted_message);
+end
+
+function encrypted_message = caesar_cipher(message, shift)
+    
+    encrypted_message = '';
+
+    
+    for i = 1:length(message)
+        
+        char_val = double(message(i));
+        
+        
+        if char_val >= double('a') && char_val <= double('z')
+            
+            new_char = char(mod(char_val - double('a') + shift, 26) + double('a'));
+            encrypted_message = [encrypted_message, new_char];
+        else
+            encrypted_message = [encrypted_message, message(i)]; 
+        end
+    end
+end
