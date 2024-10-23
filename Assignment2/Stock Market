@@ -1,0 +1,42 @@
+data = readmatrix('stock_data.txt');
+
+
+average_price = mean(data);
+highest_price = max(data);
+lowest_price = min(data);
+
+
+price_increases = sum(diff(data) > 0);
+
+
+fprintf('Average Closing Price: %.2f\n', average_price);
+fprintf('Highest Closing Price: %.2f\n', highest_price);
+fprintf('Lowest Closing Price: %.2f\n', lowest_price);
+fprintf('Number of Days Price Increased: %d\n', price_increases);
+
+
+figure;
+plot(data, 'b-', 'LineWidth', 1.5);
+hold on;
+yline(average_price, 'r--', 'Average Price', 'LabelHorizontalAlignment', 'left');
+yline(highest_price, 'g--', 'Highest Price', 'LabelHorizontalAlignment', 'left');
+yline(lowest_price, 'm--', 'Lowest Price', 'LabelHorizontalAlignment', 'left');
+
+
+xlabel('Day');
+ylabel('Closing Price');
+title('Stock Closing Prices Over 30 Days');
+legend('Daily Closing Price', 'Average Price', 'Highest Price', 'Lowest Price');
+grid on;
+
+
+saveas(gcf, 'stock_analysis.png');
+
+fileID = fopen('stock_summary.txt', 'w');
+fprintf(fileID, 'Stock Analysis Summary\n');
+fprintf(fileID, '----------------------\n');
+fprintf(fileID, 'Average Closing Price: %.2f\n', average_price);
+fprintf(fileID, 'Highest Closing Price: %.2f\n', highest_price);
+fprintf(fileID, 'Lowest Closing Price: %.2f\n', lowest_price);
+fprintf(fileID, 'Number of Days Price Increased: %d\n', price_increases);
+fclose(fileID);
