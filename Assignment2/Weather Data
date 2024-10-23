@@ -1,0 +1,19 @@
+data = readcell('weather_data.txt');
+
+temperature = cell2mat(data(2:end, 2));
+humidity = cell2mat(data(2:end, 3));
+precipitation = cell2mat(data(2:end, 4));
+
+average_temperature = mean(temperature);
+average_humidity = mean(humidity);
+total_precipitation = sum(precipitation);
+
+summary_data = {
+    'Average Temperature', average_temperature;
+    'Average Humidity', average_humidity;
+    'Total Precipitation', total_precipitation
+};
+
+writetable(cell2table(summary_data), 'weather_summary.txt', 'WriteVariableNames', false);
+
+disp('Weather summary saved to weather_summary.txt');
