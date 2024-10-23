@@ -1,0 +1,20 @@
+population = [5000, 5200, 5350, 5600, 5800];
+
+
+growth_rate = zeros(1, length(population)-1);
+for i = 2:length(population)
+    growth_rate(i-1) = (population(i) - population(i-1)) / population(i-1) * 100;
+end
+
+
+pop_data = [population; [NaN, growth_rate]]; 
+
+
+fprintf('Year\tPopulation\tGrowth Rate\n');
+for i = 1:length(population)
+    if i == 1
+        fprintf('%d\t%d\tN/A\n', i, population(i)); 
+    else
+        fprintf('%d\t%d\t%.2f%%\n', i, population(i), growth_rate(i-1));
+    end
+end
